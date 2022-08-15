@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <title>Explore WebSocket</title>
+</head>
+
+<body class="">
+    <h1 class="bg-primary text-center p-2 text-light">Explore WebSocket</h1>
+    <div class="d-flex flex-column justify-content-center align-items-center text-white">
+        <ul id="ul" class="w-50"></ul>
+        <form id="form" class="w-50 input-group ">
+            <input class="form-control" type="text">
+            <button id="btn" class="btn btn-primary" type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:8080');
+        const ul = document.getElementById('ul');
+
+        ws.addEventListener('open', () => {
+            const form = document.getElementById('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = form[0].value;
+                if (!text) {
+                    window.alert('Please enter a valid text !');
+                    return;
+                }
+                const li = document.createElement('li');
+                li.textContent = 'You: ' + text;
+                li.classList.add('bg-primary', 'list-unstyled', 'rounded', 'mb-1', 'p-1', 'text-end');
+                ul.appendChild(li);
+                ws.send(text);
+                form[0].value = ''
+            });
+        });
+
+        ws.addEventListener('message', (e) => {
+            const li = document.createElement('li');
+            li.textContent = "Anonymous: " + e.data;
+
+            li.classList.add('bg-secondary', 'list-unstyled', 'rounded', 'mb-1', 'p-1');
+            ul.appendChild(li);
+
+        })
+    </script>
+</body>
+
+</html> 
