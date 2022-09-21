@@ -4,7 +4,8 @@
     "ws": "^8.8.1"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "name": "explore-websocket",
   "version": "1.0.0",
