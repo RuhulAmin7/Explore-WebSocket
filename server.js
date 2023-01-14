@@ -27,6 +27,6 @@ wss.on('connection', (socket) => {
   });
 });
 
-expressHTTPServer.listen(3000, () => {
-  console.log('server is listening on port 3000');
+expressHTTPServer.listen(8080, () => {
+  console.log('Server is listening on port 8080');
 });
